@@ -39,7 +39,7 @@ module ActiveMerchant
         build_response_check(commit('check', {
           :once  => "1",
           :rtlo  => @options[:rtlo],
-          :test  => ActiveMerchant::Billing::Base.test?,
+          :test  => ActiveMerchant::Billing::Base.test? ? "1" : "0",
           :trxid => token
         }))
       end
