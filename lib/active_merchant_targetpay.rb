@@ -1,4 +1,7 @@
 require 'active_merchant'
+require 'active_merchant/billing/targetpay_direct_debit'
+require 'active_merchant/billing/targetpay_direct_debit_check_response'
+require 'active_merchant/billing/targetpay_direct_debit_start_response'
 require 'active_merchant/billing/targetpay_ideal'
 require 'active_merchant/billing/targetpay_ideal_check_response'
-require 'active_merchant/billing/targetpay_ideal_fetch_response'
+require 'active_merchant/billing/targetpay_ideal_start_response'
