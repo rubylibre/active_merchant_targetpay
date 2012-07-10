@@ -7,8 +7,8 @@ module ActiveMerchant
       
       def initialize(options={})
         requires!(options, :rtlo)
-        
         @options = options
+        super
       end
       
       def setup_purchase(money, options)

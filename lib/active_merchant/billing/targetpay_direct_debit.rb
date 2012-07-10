@@ -9,11 +9,8 @@ module ActiveMerchant
       
       def initialize(options = {})
         requires!(options, :rtlo, :salt)
-
-        raise ArgumentError.new("rtlo is blank") if options[:rtlo].blank?
-        raise ArgumentError.new("salt is blank") if options[:salt].blank?
-        
         @options = options
+        super
       end
       
       def setup_purchase(money, options)
