@@ -14,7 +14,7 @@ module ActiveMerchant
       end
 
       def setup_purchase(money, options)
-        requires!(options, :cbank, :cname, :description, :reporturl, :retrymax, :securitylevel, :userip)
+        requires!(options, :cbank, :cname, :description, :reporturl, :securitylevel, :userip, :mandate, :mandatestart)
 
         raise ArgumentError.new("money should be >= EUR 1,00")                  if money < 100
         raise ArgumentError.new("money should be <= EUR 1000,00")               if money > 100000
@@ -22,9 +22,10 @@ module ActiveMerchant
         raise ArgumentError.new("cname is blank")                               if options[:cname].blank?
         raise ArgumentError.new("description should =~ /^[0-9A-Z\ ]{1,32}$/i")  if !(options[:description] =~ /^[0-9A-Z\ ]{1,32}$/i)
         raise ArgumentError.new("reporturl is blank")                           if options[:reporturl].blank?
-        raise ArgumentError.new("retrymax should be an Integer")                if !options[:retrymax].kind_of?(Integer)
         raise ArgumentError.new("securitylevel should be an Integer")           if !options[:securitylevel].kind_of?(Integer)
         raise ArgumentError.new("userip is blank")                              if options[:userip].blank?
+        raise ArgumentError.new("mandate is blank")                             if options[:mandate].blank?
+        raise ArgumentError.new("mandatestart is blank")                        if options[:mandatestart].blank?
 
         @response = build_start_response(commit('start', {
           :amount         => money,
@@ -33,12 +34,13 @@ module ActiveMerchant
           :country        => "NL",
           :description    => CGI::escape(options[:description]),
           :reporturl      => options[:reporturl],
-          :retrymax       => options[:retrymax],
           :rtlo           => @options[:rtlo],
           :salt           => @options[:salt],
           :securitylevel  => options[:securitylevel],
           :test           => ActiveMerchant::Billing::Base.test? ? "1" : "0",
-          :userip         => options[:userip]
+          :userip         => options[:userip],
+          :mandate        => options[:mandate],
+          :mandatestart   => options[:mandatestart]
         }))
       end
 
